@@ -16,7 +16,9 @@
 				echo 'Ecrivez un nombre'
 			}
 
-		
+			else if ($_POST['typeAccount'] != ('USD' || 'EUR'))
+			{
+				echo "Choix Impossible";
 		}	
 	}
 ?>
