@@ -88,22 +88,6 @@
 	verifFormBankAccount();
 ?>
 
-<?php
 
-	function insertIntoBank($name, $typeAccount, $currency, $provision)
-	{
-		$req = $db->prepare('INSERT INTO bankAccount (idUser, name, type, currency, provision) VALUES(:idUser, :name, :type, :currency, :provision)');  //
-		$req->execute(array(
-						'idUser' => $_SESSION['idUser'],
-						'name' => $nameBankAccount,
-						'type' => $typeAccount,
-						'currency' => $currency,
-						'provision' => $provision));
-	
-	}
-
-	verifFormBankAccount();
-
-?>
 
 
