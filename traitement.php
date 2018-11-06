@@ -17,7 +17,7 @@
 		$availableType = ['epargne', 'compte_joint', 'courant'];
 		$availableCurrency = ['USD', 'EUR'];
 
-	
+
 		if (isset($submitFormAccount))// isset verifie si l'information à été envoyé ici à traitement.php
 		{	
 
@@ -53,6 +53,26 @@
 
 
 	}
+	function countBankAccount()
+		{   
+			$db = db_connect();
+			$req = $db->prepare('SELECT COUNT(idUser) as countId FROM bankAccount WHERE idUser = :idUser');
+			$req->execute(array('idUser' => 1));
+
+			$data = $req->fetch();
+
+			if ($data['countId'] < 10)
+			{
+				return true;
+			}
+			else
+			{
+				return false;	
+			} 
+				
+		
+		}
+
 
 	function insertIntoBank($name, $typeAccount, $currency, $provision)
 	{
@@ -68,5 +88,22 @@
 	verifFormBankAccount();
 ?>
 
+<?php
+
+	function insertIntoBank($name, $typeAccount, $currency, $provision)
+	{
+		$req = $db->prepare('INSERT INTO bankAccount (idUser, name, type, currency, provision) VALUES(:idUser, :name, :type, :currency, :provision)');  //
+		$req->execute(array(
+						'idUser' => $_SESSION['idUser'],
+						'name' => $nameBankAccount,
+						'type' => $typeAccount,
+						'currency' => $currency,
+						'provision' => $provision));
+	
+	}
+
+	verifFormBankAccount();
+
+?>
 
 
