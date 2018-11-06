@@ -14,7 +14,7 @@ CREATE DATABASE BDD CHARACTER SET 'utf8'; -- creation base de données
 		id INT UNSIGNED NOT NULL AUTO_INCREMENT,
 		idUser INT UNSIGNED NOT NULL,
 		name VARCHAR(50) NOT NULL,
-		type ENUM('courant','epargne','compte joint'),
+		type ENUM('courant','epargne','compte_joint'),
 		provision DECIMAL(10,3) DEFAULT 0,
 		currency ENUM('EUR','USD'),
 		PRIMARY KEY (id)

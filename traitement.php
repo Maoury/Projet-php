@@ -1,24 +1,41 @@
 <?php
 	function verifFormBankAccount()
 	{
-		if(isset($_POST['submitFormAccount']))
-		{
-			if(strlen($_POST['nameBankAccount']) > 50) && (!htmlspecialchars($_POST['nameBankAccount']))
-			{
-				echo 'Nom limité à 50 caracteres veuillez rentrer un nom conforme';
-			}
-			else if ($_POST['typeAccount'] != ('epargne' || 'compte joint' || 'courant'))
-			{
-				echo "Choix Impossible";
-			}
-			elseif (!is_numeric ($_POST['provision'])) 
-			{
-				echo 'Ecrivez un nombre'
-			}
+		$submitFormAccount = htmlentities($_POST['submitFormAccount']);
+		$nameBankAccount = htmlentities($_POST['nameBankAccount']);
+		$typeAccount = htmlentities($_POST['typeAccount']);
+		$provision = htmlentities($_POST['provision']);
+		$currency = htmlentities($_POST['currency']);
 
-			else if ($_POST['typeAccount'] != ('USD' || 'EUR'))
+		$availableType = ['epargne', 'compte_joint', 'courant'];
+		$availableCurrency = ['USD', 'EUR'];
+
+		if (isset($submitFormAccount))
+		{	
+			if (strlen($nameBankAccount) > 50 OR strlen($nameBankAccount) == 0)
 			{
-				echo "Choix Impossible";
-		}	
+				$message = 'Votre nom de compte n\'est pas conforme. Entre 0 et 50 caractères max.';
+			}
+			else if(!in_array($typeAccount, $availableType)){
+				$message = "Choix Impossible, sélectionnez l'un des types proposés";
+			}
+			else if (!is_numeric($provision)) 
+			{
+				$message = 'Veuillez renseignez un montant, ex : 500.00';
+			}
+			else if (!in_array($currency, $availableCurrency))
+			{
+				$message = "Choix Impossible, sélectionnez l'une des devises proposées";
+			}
+			else
+			{
+				$message = "Nom de compte : " . $nameBankAccount . " Type de compte : " . $typeAccount . " Solde : " . $provision . " Devise : " . $currency;
+			}
+		}
+
+		header('Location: bankAccountForm.php?msg=' . $message);
 	}
 ?>
+
+
+

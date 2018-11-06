@@ -4,7 +4,7 @@
 	<select name="typeAccount">
 		<option value='epargne'>Epargne</option>
 		<option value='courant'>Courant</option>
-		<option value='compte joint'>Compte joint</option>
+		<option value='compte_joint'>Compte joint</option>
 	</select>
 	<input type="number" name="provision">
 	<select name='currency'>
@@ -14,3 +14,9 @@
 	<input type="submit" name="submitFormAccount" value="Valider">
 </form>
 
+
+<?php
+
+if(isset($_GET['msg'])){
+	echo htmlspecialchars($_GET['msg']);
+}
