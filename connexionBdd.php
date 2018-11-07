@@ -13,7 +13,8 @@
 			(
 				"mysql:host=$host;dbname=$dbname",
 				$user,
-				$password);
+				$password,
+				array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
 
 			return $db;
 			}
@@ -24,6 +25,5 @@
 		}		
 
 	}
-
 
 ?>
