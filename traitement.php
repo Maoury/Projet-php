@@ -13,9 +13,8 @@
 		$availableCurrency = ['USD', 'EUR'];
 
 
-		if (isset($submitFormAccount))// isset verifie si l'information à été envoyé ici à traitement.php
+		if (isset($_POST['submitFormAccount']))// isset verifie si l'information à été envoyé ici à traitement.php
 		{	
-			$submitFormAccount = htmlentities($_POST['submitFormAccount']);
 			$nameBankAccount = htmlentities($_POST['nameBankAccount']);
 			$typeAccount = htmlentities($_POST['typeAccount']);
 			$provision = htmlentities($_POST['provision']);
@@ -42,10 +41,16 @@
 			{
 				$message = "Nom de compte : " . $nameBankAccount . " Type de compte : " . $typeAccount . " Solde : " . $provision . " Devise : " . $currency;
 				
+					
 
 				insertIntoBank($nameBankAccount, $typeAccount, $currency, $provision);
 
 			}
+		
+
+					// redirige la variable 'message' sur la page du formulaire, ainsi l'utilisateur voit le message de son erreur et peut éditer le formulaire
+				header('Location: bankAccountForm.php?msg=' . $message);
+
 		}
 		
 		// redirige la variable 'message' sur la page du formulaire, ainsi l'utilisateur voit le message de son erreur et peut éditer le formulaire
@@ -53,6 +58,7 @@
 
 
 	}
+
 	function countBankAccount()
 		{   
 			$db = db_connect();
@@ -76,6 +82,7 @@
 
 	function insertIntoBank($name, $typeAccount, $currency, $provision)
 	{
+		$db = db_connect();
 		$req = $db->prepare('INSERT INTO bankAccount (idUser, name, type, currency, provision) VALUES(:idUser, :name, :type, :currency, :provision)');  //
 		$req->execute(array(
 						'idUser' => $_SESSION['idUser'],
