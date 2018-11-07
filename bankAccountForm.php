@@ -1,16 +1,3 @@
-<?php
-	session_start();
-
-	$_SESSION['idUser'] = 1; // La session est ouverte par l'uitilsateur 1
-
-	include_once('traitement.php');
-	include_once('connexionBdd.php');
-?>
-
-<?php 
-	if (countBankAccount() === true)
-	{
-?>
 		<form method='POST' action='traitement.php'> 
 			<p><label for="nameBankAccount">Nom de compte :</label></p>
 			<p><input type="text" name="nameBankAccount" id="nameBankAccount"></p>
@@ -30,27 +17,12 @@
 			<p><input type="submit" name="submitFormAccount" value="Valider"></p>
 		</form>
 
-		<form method="POST" action="">
-		<select name="nameBankAccount" id="">
-			<option value=""></option>
-		</select>
-<?php
-		if ()
-?>
-		<input type="submit" name="deleteBankAccount" value="Supprimer">
-		</form>
-<?php
-	}
-	else 
-	{
-?>
-		<p>Trop de comptes bancaires. 10 max. par utilisateur, veuillez supprimer au minimum un compte ou abonnez-vous à <a href="#">l'offre premium</a></p>
-	
-<?php	
-	}
-?>
+
+
+		
+
 <?php 
-/*	if (countBankAccount() === true)
+	if (countBankAccount() === true)
 	{
 		echo '<form method="POST" action="traitement.php"> 
 			
@@ -73,14 +45,14 @@
 	else 
 	{
 
-		<p> vious avez déja 10 compte (limite) payer le compte premium pour avoir plus de compte <href src="payant.html"></p>
+		echo '<p> vious avez déja 10 compte (limite) payer le compte premium pour avoir plus de compte <href src="payant.html"></p>';
 	}
 
-*/
 ?>
 <?php
 
-if(isset($_GET['msg'])){
+if(isset($_GET['msg']))
+{
 	echo htmlspecialchars($_GET['msg']);
 }
 ?>

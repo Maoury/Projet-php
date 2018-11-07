@@ -2,9 +2,9 @@
 
 session_start();
 
-$_SESSION['idUser'] == 1;
+include_once 'Functions/fonctions.php';
 
-
+$_SESSION['idUser'] = 1;
 
 ?>
 
@@ -17,7 +17,9 @@ $_SESSION['idUser'] == 1;
 </head>
 <body>
 
-
+<?php
+include_once('bankAccountForm.php');
+?>
 
 </body>
 </html>

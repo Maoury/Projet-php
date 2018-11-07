@@ -1,19 +1,11 @@
 <?php
+	session_start();
 //*. INCLUSION DE LA FONCTION DE CONNEXION BDD
-	include_once('connexionBdd.php'); // permet d'inclure une fonction et de l'executé qu'une seule fois (évite les plantage)
+	include_once('Functions/fonctions.php'); // permet d'inclure une fonction et de l'executé qu'une seule fois (évite les plantage)
+	
+	verifFormBankAccount();
 
 
-	verifFormBankAccount(); // VERIFIE LES DONNEES
-	if (verifFormBankAccount() === TRUE)
-	{
-		insertIntoBank($nameBankAccount, $typeAccount, $currency, $provision); // INSERE LES DONNEES
-		$message = "Nom de compte : " . $nameBankAccount . " Type de compte : " . $typeAccount . " Solde : " . $provision . " Devise : " . $currency . ' a été ajouté à votre liste de compte';
-	}
-	else 
-	{
-		echo '<p> Formulaire incorrect, veuillez recommencer </p>';
-		include_once('bankAccountForm.php');
-	}	
 //1. FONCTION VERIFICATION DU FORMULAIRE + connexion BDD
 
 	function verifFormBankAccount() 
@@ -51,47 +43,22 @@
 			{
 				$message = "Choix Impossible, sélectionnez l'une des devises proposées";
 			}
-
-		}
-		// redirige la variable 'message' sur la page du formulaire, ainsi l'utilisateur voit le message de son erreur et peut éditer le formulaire
-		header('Location: bankAccountForm.php?msg=' . $message);
-	}
-	
-
-//2. FONCTION DE COMPTAGE DE PRESENCE DE COMPTE UTILISATEUR INFERIEUR A 10 POUR UN MEME UTILISATEUR + Connexion BDD
-	function countBankAccount()
-		{   
-			$db = db_connect();
-			$req = $db->prepare('SELECT COUNT(idUser) as countId FROM bankAccount WHERE idUser = :idUser');
-			$req->execute(array('idUser' => $_SESSION['idUser']));
-
-			$data = $req->fetch();
-
-			if ($data['countId'] < 10)
-			{
-				return true;
+			else if(!countBankAccount()){
+				$message = "Trop de compte";
 			}
 			else
 			{
-				return false;	
-			} 
+				insertIntoBank($nameBankAccount, $typeAccount, $currency, $provision); // INSERE LES DONNEES
 				
-		
+				$message = "Nom de compte : " . $nameBankAccount . " Type de compte : " . $typeAccount . " Solde : " . $provision . " Devise : " . $currency . ' a été ajouté à votre liste de compte';
+			}
+
+			// redirige la variable 'message' sur la page du formulaire, ainsi l'utilisateur voit le message de son erreur et peut éditer le formulaire
+			header('Location: index.php?msg=' . $message);
+
 		}
-
-//3. FONCTION D'INSERTION DES DONNEES DU FORMULAIRE DANS LA BASE DE DONNEES + Connexion BDD
-	function insertIntoBank($nameBankAccount, $typeAccount, $currency, $provision)
-	{	
-		$db = db_connect();
-		$req = $db->prepare('INSERT INTO bankAccount (idUser, name, type, currency, provision) VALUES(:idUser, :name, :type, :currency, :provision)');  //
-		$req->execute(array(
-						'idUser' => $_SESSION['idUser'],
-						'name' => $nameBankAccount,
-						'type' => $typeAccount,
-						'currency' => $currency,
-						'provision' => $provision)) ;
-
 	}
+	
 ?>
 
 
