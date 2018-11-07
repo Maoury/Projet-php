@@ -39,3 +39,16 @@ CREATE DATABASE BDD CHARACTER SET 'utf8'; -- creation base de données
 		PRIMARY KEY (id)
 	)
 	ENGINE = INNODB;
+
+										--STORY 3--
+	ALTER TABLE bankAccount ADD FOREIGN KEY (idUser) REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE;
+	ALTER TABLE operation ADD FOREIGN KEY (idBankAccount) REFERENCES bankAccount(id) ON DELETE CASCADE ON UPDATE CASCADE;
+	ALTER TABLE operation ADD FOREIGN KEY (idCategory) REFERENCES category(id) ON DELETE CASCADE ON UPDATE CASCADE;
+
+	INSERT INTO bankAccount (idUser, name, type, provision, currency)
+	VALUES (1, 'Budget', 'courant', 300.00, 'EUR'),
+		   (1, 'Budget Alim', 'courant', 500.00, 'EUR'),
+		   (1, 'Budget Vacances', 'compte_joint', 900.00, 'EUR'),
+		   (1, 'Budget Noël', 'epargne', 900.00, 'EUR'),
+		   (1, 'Budget Vacances d\'Hiver', 'compte_joint', 900.00, 'EUR'),
+		   (1, 'Budget Vacances d\'Eté', 'compte_joint', 900.00, 'EUR');

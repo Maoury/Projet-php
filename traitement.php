@@ -1,16 +1,11 @@
 <?php
-	session_start();
 
 	include_once('connexionBdd.php'); // permet d'inclure une fonction et de l'executé qu'une seule fois (évite les plantage)
 
-	function verifFormBankAccounon() 
+	function verifFormBankAccount() 
 	// déclaration de variable : On récupère les "names" du formulaire avec $_POST. Ensuite on les re-déclarent pour simplifier leurs notations
 	{
-		$submitFormAccount = htmlentities($_POST['submitFormAccount']);
-		$nameBankAccount = htmlentities($_POST['nameBankAccount']);
-		$typeAccount = htmlentities($_POST['typeAccount']);
-		$provision = htmlentities($_POST['provision']);
-		$currency = htmlentities($_POST['currency']);
+
 		
 		$db = db_connect();
 // Lorsque que l'on met des crochets lors d'une création de variables on les "transforment" en tableau. les virgules séparent les colonnes
@@ -20,6 +15,11 @@
 
 		if (isset($submitFormAccount))// isset verifie si l'information à été envoyé ici à traitement.php
 		{	
+			$submitFormAccount = htmlentities($_POST['submitFormAccount']);
+			$nameBankAccount = htmlentities($_POST['nameBankAccount']);
+			$typeAccount = htmlentities($_POST['typeAccount']);
+			$provision = htmlentities($_POST['provision']);
+			$currency = htmlentities($_POST['currency']);
 
 			if (strlen($nameBankAccount) > 50 OR strlen($nameBankAccount) == 0)
 			{
@@ -49,7 +49,7 @@
 		}
 		
 		// redirige la variable 'message' sur la page du formulaire, ainsi l'utilisateur voit le message de son erreur et peut éditer le formulaire
-		header('Location: bankAccountForm.php?msg=' . $message);
+		// header('Location: bankAccountForm.php?msg=' . $message);
 
 
 	}

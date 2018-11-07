@@ -1,7 +1,10 @@
 <?php
 	session_start();
 
-	$_SESSION['idUser'] = 1; // La session est ouveryte par l'uitilsateur 1
+	$_SESSION['idUser'] = 1; // La session est ouverte par l'uitilsateur 1
+
+	include_once('traitement.php');
+	include_once('connexionBdd.php');
 ?>
 
 <?php 
@@ -29,8 +32,9 @@
 	{
 ?>
 		<p> vious avez déja 10 compte (limite) payer le compte premium pour avoir plus de compte <href src="payant.html"></p>
+<?php
 	}
-
+?>
 <?php 
 /*	if (countBankAccount() === true)
 	{
@@ -59,11 +63,5 @@
 	}
 
 */
-
-<?php
-
-if(isset($_GET['msg'])){
-	echo htmlspecialchars($_GET['msg']);
-}
-
 ?>
+
