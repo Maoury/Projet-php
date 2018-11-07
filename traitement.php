@@ -1,5 +1,6 @@
 <?php
-
+	session_start();
+	
 	include_once('connexionBdd.php'); // permet d'inclure une fonction et de l'executé qu'une seule fois (évite les plantage)
 
 	function verifFormBankAccount() 
@@ -41,8 +42,6 @@
 			{
 				$message = "Nom de compte : " . $nameBankAccount . " Type de compte : " . $typeAccount . " Solde : " . $provision . " Devise : " . $currency;
 				
-					
-
 				insertIntoBank($nameBankAccount, $typeAccount, $currency, $provision);
 
 			}
@@ -54,8 +53,7 @@
 		}
 		
 		// redirige la variable 'message' sur la page du formulaire, ainsi l'utilisateur voit le message de son erreur et peut éditer le formulaire
-		// header('Location: bankAccountForm.php?msg=' . $message);
-
+		
 
 	}
 
@@ -63,7 +61,7 @@
 		{   
 			$db = db_connect();
 			$req = $db->prepare('SELECT COUNT(idUser) as countId FROM bankAccount WHERE idUser = :idUser');
-			$req->execute(array('idUser' => 1));
+			$req->execute(array('idUser' => $_SESSION['idUser']));
 
 			$data = $req->fetch();
 
@@ -80,7 +78,7 @@
 		}
 
 
-	function insertIntoBank($name, $typeAccount, $currency, $provision)
+	function insertIntoBank($nameBankAccount, $typeAccount, $currency, $provision)
 	{
 		$db = db_connect();
 		$req = $db->prepare('INSERT INTO bankAccount (idUser, name, type, currency, provision) VALUES(:idUser, :name, :type, :currency, :provision)');  //
@@ -89,7 +87,8 @@
 						'name' => $nameBankAccount,
 						'type' => $typeAccount,
 						'currency' => $currency,
-						'provision' => $provision));
+						'provision' => $provision)) ;
+
 	}
 
 	verifFormBankAccount();
