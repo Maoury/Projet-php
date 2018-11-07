@@ -1,3 +1,8 @@
+<?php
+
+	if (countBankAccount() === true)
+	{
+?>
 		<form method='POST' action='traitement.php'> 
 			<p><label for="nameBankAccount">Nom de compte :</label></p>
 			<p><input type="text" name="nameBankAccount" id="nameBankAccount"></p>
@@ -16,12 +21,18 @@
 			</select>
 			<p><input type="submit" name="submitFormAccount" value="Valider"></p>
 		</form>
-
-
+<?php
+	}
+	else 
+	{
+		echo '<p> VOUS AVEZ TROP DE COMPTES, VEUILLEZ EN SUPRR OU MODIF</p>';
+	}
+?>
 
 		
 
-<?php 
+<?php
+/*
 	if (countBankAccount() === true)
 	{
 		echo '<form method="POST" action="traitement.php"> 
@@ -47,7 +58,7 @@
 
 		echo '<p> vious avez déja 10 compte (limite) payer le compte premium pour avoir plus de compte <href src="payant.html"></p>';
 	}
-
+*/
 ?>
 <?php
 

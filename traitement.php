@@ -44,7 +44,7 @@
 				$message = "Choix Impossible, sélectionnez l'une des devises proposées";
 			}
 			else if(!countBankAccount()){
-				$message = "Trop de compte";
+				$message = "Nombre de comptes bancaires utilisateur dépassés. 10 max. par utilisateur";
 			}
 			else
 			{
