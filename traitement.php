@@ -53,17 +53,15 @@
 
 
 	}
-	function countBankAccount() 
+	function countBankAccount()
 		{   
-			$db = db_connect(); // Il faut toujours ce connecter à la base donnée lorsque l'on crée une fonction qui l'utilise
-			
-			// :idUser permet de déclarer en variable la colonne idUser sous PDO
+			$db = db_connect();
 			$req = $db->prepare('SELECT COUNT(idUser) as countId FROM bankAccount WHERE idUser = :idUser');
-			$req->execute(array('idUser' => 1)); // On indique que la variable idUser vaut 1
+			$req->execute(array('idUser' => 1));
 
-			$data = $req->fetch();// fetch — Récupère la ligne suivante d'un jeu de résultats PDO
+			$data = $req->fetch();
 
-			if ($data['countId'] < 10) // Voir THIBALL's demain
+			if ($data['countId'] < 10)
 			{
 				return true;
 			}
@@ -75,6 +73,19 @@
 		
 		}
 
+
+	function insertIntoBank($name, $typeAccount, $currency, $provision)
+	{
+		$req = $db->prepare('INSERT INTO bankAccount (idUser, name, type, currency, provision) VALUES(:idUser, :name, :type, :currency, :provision)');  //
+		$req->execute(array(
+						'idUser' => $_SESSION['idUser'],
+						'name' => $nameBankAccount,
+						'type' => $typeAccount,
+						'currency' => $currency,
+						'provision' => $provision));
+	}
+
+	verifFormBankAccount();
 ?>
 
 
