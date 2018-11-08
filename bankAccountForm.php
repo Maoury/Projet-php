@@ -29,6 +29,21 @@
 	}
 ?>
 
+
+	<p>Suppression de compte</p>
+	<p><form name="deleteAccount" action="traitement.php"></p>
+	<p><label for="selected"></label></p>
+	<p><select name="selected" id="selected"></p>
+	<?php
+		while($data = req->fetch()) {
+			echo "<option value='" . $data['id'] . "'>" . $data['name'] . ' - ' . $data['type'] . ' - ' . $data['provision'] . ' - ' . $data['currency'] . "</option>";
+		}
+	?>
+	</select>
+	<p><input type="submit" name="delete" value="Supprimer"></p>
+	</form>
+
+
 		
 
 <?php
